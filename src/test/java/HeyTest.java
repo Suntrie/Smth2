@@ -1,3 +1,4 @@
+import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -39,8 +40,10 @@ public class HeyTest {
     public void testTextFound() {
 
         //WebElement e = (WebElement) driver.findElement(By.xpath("//*[@text='Hello Android-T!']"));
-        WebElement e = driver.findElement(By.xpath("//*[contains(@text,' Android-T!')]"));
-        Assert.assertEquals("Hello Android-T!", e.getText(), "Result should be 'Hello Android-T!'");
+        WebElement e1 = driver.findElement(By.xpath("//*[contains(@text,' Android-T!')]"));
+        WebElement e2 = driver.findElement (AppiumBy.androidUIAutomator ("new UiSelector().textContains(\" Android-T!\")"));
+
+        Assert.assertEquals("Hello Android-T!", e2.getText(), "Result should be 'Hello Android-T!'");
     }
 
     @AfterMethod
