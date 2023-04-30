@@ -2,21 +2,22 @@ package nopageobjectmodel;
 
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import static org.junit.Assert.assertEquals;
+
 public class HeyTest {
     private AndroidDriver driver;
 
-    @BeforeMethod
+    @Before
     public void setUp() throws MalformedURLException {
         DesiredCapabilities capabilities = new DesiredCapabilities();
         // iPhone Simulator, iPad Simulator, iPhone Retina 4-inch, Android Emulator, Galaxy S4 и т.д.
@@ -45,10 +46,10 @@ public class HeyTest {
         WebElement e1 = driver.findElement(By.xpath("//*[contains(@text,' Android-T!')]"));
         WebElement e2 = driver.findElement (AppiumBy.androidUIAutomator ("new UiSelector().textContains(\" Android-T!\")"));
 
-        Assert.assertEquals("Hello Android-T!", e2.getText(), "Result should be 'Hello Android-T!'");
+        assertEquals("Hello Android-T!", e2.getText(), "Result should be 'Hello Android-T!'");
     }
 
-    @AfterMethod
+    @After
     public void teardown() {
         driver.quit();
     }

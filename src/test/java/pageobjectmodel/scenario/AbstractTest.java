@@ -1,32 +1,34 @@
 package pageobjectmodel.scenario;
 
-import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.android.AndroidDriver;
+import com.microsoft.appcenter.appium.EnhancedAndroidDriver;
+import com.microsoft.appcenter.appium.Factory;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
 import pageobjectmodel.pages.HomePage;
 import pageobjectmodel.pages.InputPage;
 
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.time.Duration;
 
 public class AbstractTest {
 
-    public static AppiumDriver driver;
+    public static EnhancedAndroidDriver<WebElement> driver;
 
-    HomePage homePage;
-    InputPage inputPage;
+    static HomePage homePage;
+    static InputPage inputPage;
 
     @BeforeClass
-    public void setUp() {
+    public static void setUp() {
         try {
             DesiredCapabilities capabilities = new DesiredCapabilities();
             // iPhone Simulator, iPad Simulator, iPhone Retina 4-inch, Android Emulator, Galaxy S4 и т.д.
             // На iOS, это должно быть одно  из допустимых устройств. На Android эта возможность в настоящее время игнорируется,
             // но параметр является обязательным
-            capabilities.setCapability("deviceName", "pixel");
+            capabilities.setCapability("deviceName", "Pix");
             // Имя ОС на мобильном устройстве
             capabilities.setCapability("platformName", "Android");
             // Версия ОС
@@ -38,7 +40,8 @@ public class AbstractTest {
             // Имя activity которые мы хотим запустить из пакета, указанного выше. (APK info)
             capabilities.setCapability("app", new File("src/test/resources/app-debug.apk").getAbsolutePath());
             capabilities.setCapability("appActivity", "com.example.tester.MainActivity");
-            driver = new AndroidDriver(new URL("http://localhost:4723/wd/hub"), capabilities);
+            driver = Factory.createAndroidDriver(new URL("http://localhost:4723/wd/hub"), capabilities);
+            //driver.configuratorSetWaitForSelectorTimeout(Duration.ofMinutes(2));
             homePage = new HomePage();
             inputPage = new InputPage();
         } catch (MalformedURLException e) {
@@ -47,7 +50,8 @@ public class AbstractTest {
     }
 
     @AfterClass
-    public void tearDown() {
+    public static void tearDown() {
+        driver.label("Stopping app");
         driver.quit();
     }
 

@@ -1,12 +1,19 @@
 package pageobjectmodel.scenario;
 
-import org.testng.Assert;
-import org.testng.annotations.Test;
+import com.microsoft.appcenter.appium.Factory;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.TestWatcher;
+
+import static org.junit.Assert.assertEquals;
 
 public class NavigationTest extends AbstractTest {
+
+    @Rule
+    public TestWatcher watcher = Factory.createWatcher();
     @Test
     public void testInputPageTextFound() {
         homePage.goToInputPage();
-        Assert.assertEquals(inputPage.getTextView().getText(), "Bar", "Result should contain 'Bar'");
+        assertEquals( "Result should contain 'Bar'", "Bar", inputPage.getTextView().getText());
     }
 }

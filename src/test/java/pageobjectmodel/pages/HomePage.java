@@ -7,11 +7,13 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import pageobjectmodel.scenario.AbstractTest;
 
+import java.time.Duration;
+
 @Data
 public class HomePage {
 
     public HomePage(){
-        PageFactory.initElements(new AppiumFieldDecorator(AbstractTest.driver), this);
+        PageFactory.initElements(new AppiumFieldDecorator(AbstractTest.driver, Duration.ofSeconds(5000)),  this);
     }
 
     @AndroidFindBy(xpath = "//*[contains(@text,' Android-T!')]")
