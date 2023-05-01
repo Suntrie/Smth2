@@ -12,7 +12,6 @@ import pageobjectmodel.pages.InputPage;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.time.Duration;
 
 public class AbstractTest {
 
